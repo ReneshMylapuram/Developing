@@ -1,10 +1,14 @@
 # Advanced Equities Website
 
-Single-page website for Advanced Equities (AE), a student-run investment and research organization.
+Multi-page website for Advanced Equities (AE), a student-run investment and research organization.
 
 ## Files
 
-- `index.html` - page structure and content
+- `index.html` - home page
+- `about.html` - about page
+- `structure.html` - team structure page
+- `process.html` - investment process page
+- `join.html` - join page
 - `styles.css` - visual design, responsive layout, and animations
 - `script.js` - scroll reveal interactions
 

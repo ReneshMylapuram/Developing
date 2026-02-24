@@ -112,6 +112,12 @@ body {
   color: var(--text);
 }
 
+.nav-links a.active {
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
+
 .hero {
   padding: 90px 0 60px;
 }
@@ -202,6 +208,10 @@ h1 {
 
 .card p {
   margin: 0;
+}
+
+.card .btn {
+  margin-top: 14px;
 }
 
 .timeline {
