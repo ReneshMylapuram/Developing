@@ -99,7 +99,9 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav-links a {
@@ -307,9 +309,14 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .nav-wrap {
+    align-items: flex-start;
+    padding: 10px 0;
+  }
+
   .nav-links {
-    gap: 14px;
-    font-size: 0.92rem;
+    gap: 10px;
+    font-size: 0.86rem;
   }
 }
 
