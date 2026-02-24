@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="home-page">
   <div class="bg-glow bg-glow-1"></div>
   <div class="bg-glow bg-glow-2"></div>
   <header class="site-header">
@@ -37,26 +37,39 @@
     </div>
   </header>
 <main>
-    <section class="hero container reveal">
-      <p class="eyebrow">Student-run investment organization</p>
-      <h1>Research first. Conviction always earned.</h1>
-      <p class="hero-copy">
-        Advanced Equities (AE) manages <strong>$15.5k+</strong> in live capital through sector-based analyst teams,
-        institutional-style equity research, and a disciplined portfolio inclusion process.
-      </p>
-      <div class="hero-stats">
-        <article>
-          <h2>$15.5k+</h2>
-          <p>Live capital managed</p>
-        </article>
-        <article>
-          <h2>Sector Teams</h2>
-          <p>Coverage-driven analyst collaboration</p>
-        </article>
-        <article>
-          <h2>High Conviction</h2>
-          <p>Only top case studies enter portfolio</p>
-        </article>
+    <section class="hero hero-showcase reveal">
+      <div class="hero-ambient-line hero-ambient-line-left"></div>
+      <div class="hero-ambient-line hero-ambient-line-right"></div>
+
+      <article class="hero-panel panel-left" aria-hidden="true">
+        <h3>AE Analytics</h3>
+        <p>Sector Heatmap</p>
+        <div class="mini-bars">
+          <span style="height: 38%"></span>
+          <span style="height: 64%"></span>
+          <span style="height: 84%"></span>
+          <span style="height: 56%"></span>
+        </div>
+      </article>
+
+      <article class="hero-panel panel-right" aria-hidden="true">
+        <h3>Live Tracker</h3>
+        <p>Performance Snapshot</p>
+        <div class="mini-chart"></div>
+      </article>
+
+      <div class="hero-frame container">
+        <p class="hero-chip">• Student-Run Investment Fund</p>
+        <h1>Advanced <span>Equities</span></h1>
+        <p class="hero-copy">
+          Building tomorrow&rsquo;s investment leaders through rigorous research, disciplined analysis,
+          and real portfolio management experience.
+        </p>
+        <div class="hero-actions">
+          <a class="hero-btn hero-btn-primary" href="sector-research.html">View Research</a>
+          <a class="hero-btn hero-btn-secondary" href="internship-apply.html">Join AE</a>
+          <a class="hero-btn hero-btn-ghost" href="portfolio-tracker.html">Track Portfolio</a>
+        </div>
       </div>
     </section>
 
@@ -79,4 +92,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
