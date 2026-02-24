@@ -57,28 +57,32 @@ body {
   margin: 0 auto;
 }
 
+.site-header .container {
+  width: min(1680px, 95vw);
+}
+
 .site-header {
   position: sticky;
   top: 0;
-  backdrop-filter: blur(10px);
-  background: rgba(245, 241, 232, 0.8);
-  border-bottom: 1px solid var(--border);
+  background: #031a3c;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 10;
 }
 
 .nav-wrap {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 72px;
+  min-height: 88px;
+  gap: 28px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   text-decoration: none;
-  color: inherit;
+  color: #ffffff;
 }
 
 .brand-mark {
@@ -95,29 +99,60 @@ body {
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
   letter-spacing: 0.2px;
+  font-size: 1.85rem;
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .nav-links {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  gap: 24px;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: var(--muted);
-  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+  font-size: 1.28rem;
+  white-space: nowrap;
 }
 
 .nav-links a:hover {
-  color: var(--text);
+  color: #ffffff;
 }
 
 .nav-links a.active {
-  color: var(--text);
+  color: #f8aa14;
   border-bottom: 2px solid var(--accent);
   padding-bottom: 4px;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.social-links a {
+  width: 34px;
+  height: 34px;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-transform: lowercase;
 }
 
 .hero {
@@ -310,28 +345,43 @@ h1 {
   }
 
   .nav-wrap {
-    align-items: flex-start;
-    padding: 10px 0;
+    min-height: 70px;
+    gap: 16px;
+  }
+
+  .brand-text {
+    font-size: 1.08rem;
+  }
+
+  .header-right {
+    gap: 12px;
   }
 
   .nav-links {
-    gap: 10px;
-    font-size: 0.86rem;
+    gap: 12px;
+    overflow-x: auto;
+    max-width: 56vw;
+    scrollbar-width: thin;
+  }
+
+  .nav-links a {
+    font-size: 0.83rem;
+  }
+
+  .social-links a {
+    width: 28px;
+    height: 28px;
+    font-size: 0.72rem;
   }
 }
 
 @media (max-width: 580px) {
-  .nav-wrap {
-    min-height: 64px;
-  }
-
   .brand-text {
-    display: none;
+    font-size: 0.92rem;
   }
 
   .nav-links {
-    gap: 10px;
-    font-size: 0.84rem;
+    max-width: 48vw;
   }
 
   .hero {
