@@ -854,6 +854,103 @@ h1 {
   color: rgba(219, 236, 255, 0.9);
 }
 
+.tracker-chart-card {
+  border-radius: 26px;
+  padding: 20px 20px 22px;
+  border: 1px solid rgba(210, 231, 255, 0.45);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -18px 34px rgba(34, 50, 84, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.tracker-chart-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.tracker-kicker {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(224, 239, 255, 0.9);
+}
+
+.tracker-value {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  color: #f4fbff;
+}
+
+.tracker-range {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.range-btn {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(188, 221, 255, 0.5);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+  color: #eef7ff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.range-btn.active {
+  color: #072247;
+  background: linear-gradient(145deg, rgba(210, 239, 255, 0.95), rgba(158, 214, 255, 0.95));
+  border-color: rgba(227, 246, 255, 0.95);
+}
+
+.tracker-chart-wrap {
+  position: relative;
+  height: 390px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(199, 229, 255, 0.36);
+  background: linear-gradient(160deg, rgba(16, 35, 66, 0.52), rgba(15, 29, 52, 0.2));
+}
+
+#portfolioChart {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.chart-crosshair {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(231, 245, 255, 0.86);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chart-tooltip {
+  position: absolute;
+  top: 10px;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(206, 232, 255, 0.7);
+  background: rgba(10, 27, 53, 0.82);
+  color: #f3fbff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 .fade-dash {
   height: 1px;
   margin: 18px 0;
@@ -968,6 +1065,15 @@ h1 {
   .holo-metrics {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .tracker-chart-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tracker-chart-wrap {
+    height: 320px;
   }
 
   .leader-row {

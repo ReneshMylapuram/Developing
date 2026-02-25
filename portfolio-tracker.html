@@ -42,11 +42,24 @@
       <p class="hero-copy">This section is built to display current holdings, allocation weights, and benchmark-relative performance snapshots.</p>
     </section>
     <section class="section container reveal">
-      <div class="grid-cards">
-        <article class="card"><h3>Capital Managed</h3><p>$15.5k+ in active deployment across approved, high-conviction positions.</p></article>
-        <article class="card"><h3>Holdings Dashboard</h3><p>Add ticker-level position size, entry thesis status, and risk notes.</p></article>
-        <article class="card"><h3>Performance Window</h3><p>Track monthly and semester returns versus selected benchmarks.</p></article>
-        <article class="card"><h3>Rebalance Log</h3><p>Document rationale for trims, adds, exits, and new inclusions.</p></article>
+      <div class="tracker-chart-card">
+        <div class="tracker-chart-top">
+          <div>
+            <p class="tracker-kicker">AE Portfolio Value</p>
+            <h2 class="tracker-value" id="trackerValue">$15,500.00</h2>
+          </div>
+          <div class="tracker-range" role="tablist" aria-label="Chart Range">
+            <button class="range-btn active" data-range="d" type="button">D</button>
+            <button class="range-btn" data-range="w" type="button">W</button>
+            <button class="range-btn" data-range="m" type="button">M</button>
+            <button class="range-btn" data-range="y" type="button">Y</button>
+          </div>
+        </div>
+        <div class="tracker-chart-wrap" id="trackerChartWrap">
+          <canvas id="portfolioChart" aria-label="Interactive portfolio value chart"></canvas>
+          <div class="chart-crosshair" id="chartCrosshair" aria-hidden="true"></div>
+          <div class="chart-tooltip" id="chartTooltip" aria-hidden="true"></div>
+        </div>
       </div>
     </section>
   </main>
