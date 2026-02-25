@@ -815,6 +815,29 @@ h1 {
   text-align: center;
 }
 
+.profile-media {
+  position: relative;
+}
+
+.profile-img {
+  width: 100%;
+  min-height: 140px;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(168, 219, 255, 0.42);
+  display: block;
+}
+
+.profile-media .profile-ph {
+  position: absolute;
+  inset: 0;
+}
+
+.profile-img[src]:not([src=""]) + .profile-ph {
+  display: none;
+}
+
 .profile-name,
 .profile-role {
   margin: 8px 0 0;
