@@ -376,6 +376,7 @@ body.home-page .site-footer {
 .panel-right {
   right: 3%;
   bottom: 14%;
+  padding: 10px;
 }
 
 .analytics-graph {
@@ -441,14 +442,68 @@ body.home-page .site-footer {
   bottom: 56px;
 }
 
-.mini-chart {
-  height: 84px;
-  border-radius: 10px;
-  border: 1px solid rgba(134, 189, 253, 0.38);
+.zigzag-graph {
+  position: relative;
+  height: 100%;
+  min-height: 145px;
+  border-radius: 12px;
+  border: 1px solid rgba(133, 212, 255, 0.35);
+  background: rgba(82, 176, 255, 0.05);
+  overflow: hidden;
+}
+
+.zigzag-grid {
+  position: absolute;
+  inset: 0;
   background:
-    linear-gradient(145deg, rgba(92, 176, 255, 0.15), rgba(54, 113, 190, 0.05)),
-    linear-gradient(110deg, transparent 40%, rgba(255, 189, 83, 0.6) 40%, rgba(255, 189, 83, 0.6) 43%, transparent 43%),
-    linear-gradient(75deg, transparent 57%, rgba(124, 198, 255, 0.65) 57%, rgba(124, 198, 255, 0.65) 60%, transparent 60%);
+    linear-gradient(rgba(136, 212, 255, 0.14) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(136, 212, 255, 0.12) 1px, transparent 1px) 0 0 / 28px 100%;
+}
+
+.zigzag-line {
+  position: absolute;
+  left: 6%;
+  width: 88%;
+  height: 2px;
+  background: #8fe2ff;
+  box-shadow: 0 0 8px rgba(143, 226, 255, 0.9);
+}
+
+.zigzag-line-a {
+  bottom: 30%;
+  clip-path: polygon(
+    0% 88%,
+    11% 72%,
+    22% 76%,
+    33% 56%,
+    44% 61%,
+    55% 41%,
+    66% 47%,
+    77% 27%,
+    88% 33%,
+    100% 8%,
+    100% 100%,
+    0% 100%
+  );
+}
+
+.zigzag-line-b {
+  bottom: 44%;
+  opacity: 0.92;
+  clip-path: polygon(
+    0% 88%,
+    11% 74%,
+    22% 69%,
+    33% 52%,
+    44% 58%,
+    55% 36%,
+    66% 43%,
+    77% 23%,
+    88% 28%,
+    100% 5%,
+    100% 100%,
+    0% 100%
+  );
 }
 
 .eyebrow {
