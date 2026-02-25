@@ -377,17 +377,62 @@ body.home-page .site-footer {
   bottom: 14%;
 }
 
-.mini-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  min-height: 78px;
+.analytics-graph {
+  position: relative;
+  height: 90px;
+  border-radius: 10px;
+  border: 1px solid rgba(133, 212, 255, 0.35);
+  background: rgba(82, 176, 255, 0.05);
+  overflow: hidden;
 }
 
-.mini-bars span {
-  flex: 1;
-  border-radius: 5px 5px 0 0;
-  background: linear-gradient(180deg, #89c7ff, #2d8dff);
+.graph-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(136, 212, 255, 0.14) 1px, transparent 1px) 0 0 / 100% 24px,
+    linear-gradient(90deg, rgba(136, 212, 255, 0.12) 1px, transparent 1px) 0 0 / 28px 100%;
+}
+
+.graph-line {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 12px;
+  bottom: 10px;
+  border: 2px solid rgba(137, 221, 255, 0.95);
+  border-color: transparent transparent rgba(137, 221, 255, 0.95) transparent;
+  transform: skewX(-30deg) rotate(-7deg);
+  filter: drop-shadow(0 0 5px rgba(137, 221, 255, 0.6));
+}
+
+.graph-dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8fe2ff;
+  box-shadow: 0 0 10px rgba(143, 226, 255, 0.9);
+}
+
+.dot-1 {
+  left: 14px;
+  bottom: 20px;
+}
+
+.dot-2 {
+  left: 44px;
+  bottom: 35px;
+}
+
+.dot-3 {
+  left: 78px;
+  bottom: 28px;
+}
+
+.dot-4 {
+  right: 14px;
+  bottom: 56px;
 }
 
 .mini-chart {
