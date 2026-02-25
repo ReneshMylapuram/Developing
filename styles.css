@@ -19,7 +19,7 @@ body {
   margin: 0;
   font-family: "Manrope", sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at 15% 10%, #fcf7ef 0%, var(--bg) 35%, var(--bg-2) 100%);
+  background: linear-gradient(180deg, #041a3a 0%, #0a2b5e 55%, #0f3878 100%);
   line-height: 1.6;
 }
 
@@ -159,6 +159,23 @@ body {
 body.home-page {
   background: linear-gradient(180deg, #041a3a 0%, #0a2b5e 55%, #0f3878 100%);
   color: #f3f7ff;
+}
+
+body:not(.home-page) {
+  color: #e8eefb;
+}
+
+body:not(.home-page) .hero-copy,
+body:not(.home-page) .section > p {
+  color: rgba(232, 238, 251, 0.9);
+}
+
+body:not(.home-page) .section-head h2 {
+  color: #f3f7ff;
+}
+
+body:not(.home-page) .eyebrow {
+  color: #ffd27a;
 }
 
 body.home-page .hero-copy,
