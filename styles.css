@@ -553,13 +553,13 @@ h1 {
   border-radius: 28px;
   overflow: hidden;
   transform-style: preserve-3d;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
   border: 2px solid rgba(255, 255, 255, 0.28);
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
   box-shadow:
-    0 24px 40px rgba(0, 0, 0, 0.38),
+    0 24px 40px rgba(0, 0, 0, 0.32),
     inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    inset -8px -10px 24px rgba(0, 0, 0, 0.22);
+    inset -8px -10px 24px rgba(0, 0, 0, 0.14);
 }
 
 .glass-card::before,
@@ -587,11 +587,11 @@ h1 {
   inset: 16px;
   border-radius: 18px;
   background:
-    linear-gradient(168deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.03)),
-    linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), transparent 52%);
+    linear-gradient(168deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.015)),
+    linear-gradient(to bottom right, rgba(255, 255, 255, 0.06), transparent 52%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.38),
-    inset 0 -16px 24px rgba(0, 0, 0, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -16px 24px rgba(0, 0, 0, 0.12);
 }
 
 .orbit-ring {
@@ -632,7 +632,8 @@ h1 {
 }
 
 .glass-gold {
-  transform: rotateY(-8deg) rotateX(1deg);
+  transform-origin: right center;
+  transform: translateX(-6px) rotateY(-14deg) rotateX(1deg);
 }
 
 .glass-gold::before {
@@ -666,7 +667,8 @@ h1 {
 }
 
 .glass-blue {
-  transform: rotateY(8deg) rotateX(1deg);
+  transform-origin: left center;
+  transform: translateX(6px) rotateY(14deg) rotateX(1deg);
 }
 
 .glass-blue::before {
