@@ -622,6 +622,8 @@ h1 {
   font-weight: 700;
   letter-spacing: -0.02em;
   text-shadow: 0 0 18px rgba(255, 199, 88, 0.45);
+  transform: translateZ(0);
+  transition: transform 180ms ease, text-shadow 180ms ease;
 }
 
 .metric-label {
@@ -688,6 +690,11 @@ h1 {
 .glass-blue .metric-value {
   color: #ffbc36;
   text-shadow: 0 0 18px rgba(255, 192, 74, 0.38), 0 0 22px rgba(120, 192, 255, 0.32);
+}
+
+.glass-card:hover .metric-value {
+  transform: translateZ(20px) scale(1.06);
+  text-shadow: 0 0 26px rgba(255, 202, 105, 0.75), 0 0 34px rgba(120, 192, 255, 0.45);
 }
 
 .section-head {
