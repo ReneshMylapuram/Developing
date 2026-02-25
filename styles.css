@@ -370,6 +370,7 @@ body.home-page .site-footer {
 .panel-left {
   left: 3%;
   top: 18%;
+  padding: 10px;
 }
 
 .panel-right {
@@ -379,11 +380,16 @@ body.home-page .site-footer {
 
 .analytics-graph {
   position: relative;
-  height: 90px;
+  height: 100%;
+  min-height: 145px;
   border-radius: 10px;
   border: 1px solid rgba(133, 212, 255, 0.35);
   background: rgba(82, 176, 255, 0.05);
   overflow: hidden;
+}
+
+.graph-only .analytics-graph {
+  border-radius: 12px;
 }
 
 .graph-grid {
