@@ -98,8 +98,9 @@ body {
 .brand-text {
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
-  letter-spacing: 0.2px;
-  font-size: 1.85rem;
+  letter-spacing: 0;
+  font-size: 1.55rem;
+  word-spacing: -0.18em;
 }
 
 .header-right {
@@ -120,7 +121,7 @@ body {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.9);
   font-weight: 700;
-  font-size: 1.28rem;
+  font-size: 1.04rem;
   white-space: nowrap;
 }
 
@@ -153,6 +154,32 @@ body {
   font-size: 0.86rem;
   font-weight: 700;
   text-transform: lowercase;
+}
+
+body.home-page {
+  background: linear-gradient(180deg, #041a3a 0%, #0a2b5e 55%, #0f3878 100%);
+  color: #f3f7ff;
+}
+
+body.home-page .hero-copy,
+body.home-page .section p,
+body.home-page .hero-stats p,
+body.home-page .site-footer {
+  color: rgba(243, 247, 255, 0.88);
+}
+
+body.home-page .hero-stats article,
+body.home-page .card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+body.home-page .eyebrow {
+  color: #ffd27a;
+}
+
+body.home-page .site-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .hero {
