@@ -790,36 +790,6 @@ h1 {
   filter: drop-shadow(0 0 10px rgba(147, 205, 255, 0.26));
 }
 
-.sector-dash {
-  position: relative;
-  height: 22px;
-  margin: 4px 0 8px;
-}
-
-.sector-dash::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  transform: translateY(-50%);
-  background: linear-gradient(90deg, rgba(220, 239, 255, 0), rgba(177, 215, 250, 0.72), rgba(220, 239, 255, 0));
-}
-
-.sector-dash::after {
-  content: "—";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  color: rgba(206, 232, 255, 0.84);
-  font-weight: 700;
-  font-size: 1.06rem;
-  padding: 0 8px;
-  background: rgba(23, 50, 89, 0.24);
-}
-
 .sector-card h3 {
   margin: 0 0 8px;
   color: #f6fbff;
