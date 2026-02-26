@@ -1028,6 +1028,11 @@ h1 {
   text-align: center;
 }
 
+.ledger-panel .value,
+.ledger-panel .change {
+  justify-self: center;
+}
+
 .ledger-panel[data-ledger-panel="holdings"] .value,
 .ledger-panel[data-ledger-panel="holdings"] .change {
   justify-self: center;
