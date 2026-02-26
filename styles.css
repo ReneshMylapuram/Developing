@@ -898,15 +898,8 @@ h1 {
   font-size: clamp(1.9rem, 4vw, 3.2rem);
 }
 
-.internship-ad p {
-  margin: 14px 0 0;
-  color: rgba(219, 236, 251, 0.9);
-  font-size: 1.04rem;
-  max-width: 48ch;
-}
-
 .internship-points {
-  margin-top: 18px;
+  margin-top: 8px;
 }
 
 .internship-point {
