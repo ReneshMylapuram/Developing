@@ -774,14 +774,14 @@ h1 {
 }
 
 .sector-icon-wrap {
-  min-height: 110px;
+  min-height: 128px;
   display: grid;
   place-items: center;
 }
 
 .sector-icon {
-  width: 86px;
-  height: 86px;
+  width: 108px;
+  height: 108px;
   fill: none;
   stroke: rgba(214, 236, 255, 0.96);
   stroke-width: 1.9;
