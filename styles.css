@@ -1013,9 +1013,29 @@ h1 {
 .sector-select {
   border-radius: 16px;
   border: 1px solid rgba(198, 227, 255, 0.45);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.07));
-  padding: 0 14px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.25L6 6.25L11 1.25' stroke='%23d6ebff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")
+      no-repeat calc(100% - 18px) center,
+    linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.07));
+  padding: 0 44px 0 14px;
   min-height: 52px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.sector-select:focus {
+  border-color: rgba(228, 245, 255, 0.88);
+  box-shadow: 0 0 0 2px rgba(165, 214, 255, 0.2);
+}
+
+.sector-select option {
+  color: #eaf5ff;
+  background: #1d3d6f;
+}
+
+.sector-select::-ms-expand {
+  display: none;
 }
 
 .case-study-list {
