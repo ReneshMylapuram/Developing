@@ -820,12 +820,20 @@ h1 {
 }
 
 .research-card {
-  border-radius: 20px;
+  border-radius: 24px;
+  border: 1px solid rgba(202, 229, 255, 0.42);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+  box-shadow:
+    0 18px 32px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -18px 34px rgba(34, 50, 84, 0.16);
+  backdrop-filter: blur(8px);
 }
 
 .research-card h2 {
   margin: 0 0 12px;
   font-size: 1.45rem;
+  color: #f5fbff;
 }
 
 .research-list {
@@ -835,14 +843,18 @@ h1 {
   gap: 10px;
 }
 
+.research-list li {
+  color: rgba(219, 236, 251, 0.92);
+}
+
 .research-list a {
-  color: #d8ecff;
+  color: #e4f2ff;
   text-decoration: none;
   font-weight: 600;
 }
 
 .research-list a:hover {
-  color: #f4fbff;
+  color: #ffffff;
   text-decoration: underline;
 }
 
@@ -851,9 +863,13 @@ h1 {
   align-items: center;
   gap: 6px;
   margin-top: 14px;
-  color: #beddff;
+  color: #cfe7ff;
   text-decoration: none;
   font-weight: 700;
+}
+
+.research-back:hover {
+  color: #ffffff;
 }
 
 .leadership-stack {
