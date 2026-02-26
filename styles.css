@@ -114,12 +114,12 @@ body {
 }
 
 .brand-mark::after {
-  content: "Advanced\AEquities";
+  content: "Advanced\A Equities";
   white-space: pre;
   text-align: center;
   font-family: "Space Grotesk", sans-serif;
   font-weight: 700;
-  font-size: 0.93rem;
+  font-size: 0.82rem;
   line-height: 1.02;
   color: #23295f;
   letter-spacing: -0.02em;
