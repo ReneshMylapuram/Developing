@@ -819,6 +819,43 @@ h1 {
   transform: translateX(3px);
 }
 
+.research-card {
+  border-radius: 20px;
+}
+
+.research-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.45rem;
+}
+
+.research-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.research-list a {
+  color: #d8ecff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.research-list a:hover {
+  color: #f4fbff;
+  text-decoration: underline;
+}
+
+.research-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  color: #beddff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
 .leadership-stack {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.24);
