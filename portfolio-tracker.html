@@ -61,6 +61,100 @@
           <div class="chart-tooltip" id="chartTooltip" aria-hidden="true"></div>
         </div>
       </div>
+
+      <div class="tracker-ledger-card reveal">
+        <div class="tracker-ledger-top">
+          <div class="tracker-range tracker-range-wide" role="tablist" aria-label="Portfolio Tables">
+            <button class="ledger-tab active" data-ledger-tab="holdings" type="button">Current Holdings</button>
+            <button class="ledger-tab" data-ledger-tab="transactions" type="button">Transaction History</button>
+            <button class="ledger-tab" data-ledger-tab="allocation" type="button">Allocation View</button>
+          </div>
+        </div>
+
+        <div class="ledger-panel active" data-ledger-panel="holdings">
+          <div class="ledger-head">
+            <span>Ticker</span>
+            <span>Shares</span>
+            <span>Market Value</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">NVDA</span>
+            <span class="shares">8.450</span>
+            <span class="value positive">$1,026.14</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">AAPL</span>
+            <span class="shares">6.320</span>
+            <span class="value positive">$1,098.77</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">MSFT</span>
+            <span class="shares">2.980</span>
+            <span class="value negative">$1,211.40</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">AMZN</span>
+            <span class="shares">5.100</span>
+            <span class="value positive">$903.24</span>
+          </div>
+        </div>
+
+        <div class="ledger-panel" data-ledger-panel="transactions">
+          <div class="ledger-head">
+            <span>Date</span>
+            <span>Action</span>
+            <span>Amount</span>
+          </div>
+          <div class="ledger-row">
+            <span>02/14</span>
+            <span class="ticker">Buy NVDA</span>
+            <span class="value positive">+$320.00</span>
+          </div>
+          <div class="ledger-row">
+            <span>02/12</span>
+            <span class="ticker">Sell MSFT</span>
+            <span class="value negative">-$240.15</span>
+          </div>
+          <div class="ledger-row">
+            <span>02/08</span>
+            <span class="ticker">Buy AAPL</span>
+            <span class="value positive">+$410.60</span>
+          </div>
+          <div class="ledger-row">
+            <span>02/03</span>
+            <span class="ticker">Buy AMZN</span>
+            <span class="value positive">+$198.22</span>
+          </div>
+        </div>
+
+        <div class="ledger-panel" data-ledger-panel="allocation">
+          <div class="ledger-head">
+            <span>Sector</span>
+            <span>Weight</span>
+            <span>Exposure</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">Technology</span>
+            <span>46%</span>
+            <span class="value positive">Overweight</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">Consumer</span>
+            <span>22%</span>
+            <span class="value positive">Neutral</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">Financials</span>
+            <span>16%</span>
+            <span class="value negative">Underweight</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ticker">Healthcare</span>
+            <span>16%</span>
+            <span class="value positive">Neutral</span>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
   <footer class="site-footer"></footer>

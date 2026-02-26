@@ -12,6 +12,21 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
+const ledgerTabs = Array.from(document.querySelectorAll(".ledger-tab"));
+if (ledgerTabs.length) {
+  const ledgerPanels = Array.from(document.querySelectorAll(".ledger-panel"));
+  ledgerTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.ledgerTab;
+      ledgerTabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      ledgerPanels.forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.ledgerPanel === target);
+      });
+    });
+  });
+}
+
 const chartCanvas = document.getElementById("portfolioChart");
 if (chartCanvas) {
   const chartWrap = document.getElementById("trackerChartWrap");
