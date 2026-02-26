@@ -1011,6 +1011,11 @@ h1 {
   padding: 14px 16px;
 }
 
+.ledger-panel[data-ledger-panel="holdings"] .ledger-head,
+.ledger-panel[data-ledger-panel="holdings"] .ledger-row {
+  grid-template-columns: 1.1fr 0.75fr 1fr 0.8fr;
+}
+
 .ledger-head {
   color: rgba(214, 235, 255, 0.95);
   font-weight: 700;
@@ -1043,6 +1048,28 @@ h1 {
   border-radius: 999px;
   font-weight: 700;
   border: 1px solid transparent;
+}
+
+.change {
+  justify-self: end;
+  min-width: 88px;
+  text-align: center;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.change.positive {
+  color: #dafee6;
+  background: linear-gradient(155deg, rgba(37, 152, 89, 0.44), rgba(19, 112, 68, 0.3));
+  border-color: rgba(131, 237, 180, 0.5);
+}
+
+.change.negative {
+  color: #ffe1e4;
+  background: linear-gradient(155deg, rgba(163, 57, 74, 0.46), rgba(120, 35, 53, 0.28));
+  border-color: rgba(245, 153, 168, 0.46);
 }
 
 .value.positive {
