@@ -1015,12 +1015,17 @@ h1 {
 .ledger-panel[data-ledger-panel="holdings"] .ledger-head,
 .ledger-panel[data-ledger-panel="holdings"] .ledger-row {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-items: center;
 }
 
-.ledger-panel[data-ledger-panel="holdings"] .ledger-head span:nth-child(4),
-.ledger-panel[data-ledger-panel="holdings"] .ledger-row > :nth-child(4) {
-  justify-self: end;
-  text-align: right;
+.ledger-panel[data-ledger-panel="holdings"] .ledger-head span,
+.ledger-panel[data-ledger-panel="holdings"] .ledger-row > span {
+  text-align: center;
+}
+
+.ledger-panel[data-ledger-panel="holdings"] .value,
+.ledger-panel[data-ledger-panel="holdings"] .change {
+  justify-self: center;
 }
 
 .ledger-head {
