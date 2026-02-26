@@ -27,6 +27,28 @@ if (ledgerTabs.length) {
   });
 }
 
+const caseStudySearch = document.getElementById("caseStudySearch");
+const sectorFilter = document.getElementById("sectorFilter");
+const caseItems = Array.from(document.querySelectorAll(".case-study-item"));
+
+if (caseStudySearch && sectorFilter && caseItems.length) {
+  const filterCases = () => {
+    const q = caseStudySearch.value.trim().toLowerCase();
+    const sector = sectorFilter.value;
+
+    caseItems.forEach((item) => {
+      const itemSector = item.dataset.sector || "";
+      const haystack = ((item.dataset.search || "") + " " + item.textContent).toLowerCase();
+      const sectorPass = sector === "all" || itemSector === sector;
+      const textPass = !q || haystack.includes(q);
+      item.style.display = sectorPass && textPass ? "flex" : "none";
+    });
+  };
+
+  caseStudySearch.addEventListener("input", filterCases);
+  sectorFilter.addEventListener("change", filterCases);
+}
+
 const chartCanvas = document.getElementById("portfolioChart");
 if (chartCanvas) {
   const chartWrap = document.getElementById("trackerChartWrap");

@@ -41,12 +41,46 @@
       <h1>Actionable insights behind every portfolio decision</h1>
       <p class="hero-copy">AE converts raw data into decision-ready intelligence through catalyst tracking, risk signals, and thesis health diagnostics.</p>
     </section>
-    <section class="section container reveal">
-      <ol class="timeline">
-        <li><span>01</span><div><h3>Thesis Health Checks</h3><p>Evaluate whether the original investment thesis remains intact.</p></div></li>
-        <li><span>02</span><div><h3>Catalyst Tracking</h3><p>Monitor event timelines, earnings signals, and industry inflection points.</p></div></li>
-        <li><span>03</span><div><h3>Risk Surveillance</h3><p>Flag concentration, factor, and narrative drift risks in advance.</p></div></li>
-      </ol>
+    <section class="section container">
+      <div class="tracker-ledger-card reveal intelligence-card">
+        <div class="intelligence-controls">
+          <label class="search-wrap" for="caseStudySearch">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="caseStudySearch" type="search" placeholder="Search by company or ticker..." />
+          </label>
+          <select id="sectorFilter" class="sector-select" aria-label="Filter by Sector">
+            <option value="all">All Sectors</option>
+            <option value="technology">Technology</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="financials">Financials</option>
+            <option value="consumer">Consumer</option>
+            <option value="real-estate">Real Estate</option>
+          </select>
+        </div>
+
+        <div class="case-study-list" id="caseStudyList">
+          <a class="case-study-item" href="#" data-sector="technology" data-search="NVIDIA NVDA AI semiconductors">
+            <span class="case-title">NVIDIA (NVDA) — AI Infrastructure Flywheel</span>
+            <span class="case-meta">Technology</span>
+          </a>
+          <a class="case-study-item" href="#" data-sector="financials" data-search="JPMorgan JPM banking valuation">
+            <span class="case-title">JPMorgan (JPM) — Credit Cycle Positioning</span>
+            <span class="case-meta">Financials</span>
+          </a>
+          <a class="case-study-item" href="#" data-sector="healthcare" data-search="Eli Lilly LLY obesity pipeline">
+            <span class="case-title">Eli Lilly (LLY) — Pipeline and Pricing Outlook</span>
+            <span class="case-meta">Healthcare</span>
+          </a>
+          <a class="case-study-item" href="#" data-sector="consumer" data-search="Costco COST membership durability">
+            <span class="case-title">Costco (COST) — Membership-Driven Resilience</span>
+            <span class="case-meta">Consumer</span>
+          </a>
+          <a class="case-study-item" href="#" data-sector="real-estate" data-search="Prologis PLD logistics real estate">
+            <span class="case-title">Prologis (PLD) — Logistics REIT Demand Trends</span>
+            <span class="case-meta">Real Estate</span>
+          </a>
+        </div>
+      </div>
     </section>
   </main>
   <footer class="site-footer"></footer>
