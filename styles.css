@@ -755,6 +755,181 @@ h1 {
   margin-top: 14px;
 }
 
+.internship-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.internship-visual-card {
+  border-radius: 30px;
+  padding: 22px;
+  border: 1px solid rgba(202, 229, 255, 0.44);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 18px 32px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -18px 34px rgba(34, 50, 84, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.report-frame {
+  border-radius: 22px;
+  min-height: 560px;
+  padding: 24px 20px;
+  border: 1px solid rgba(198, 227, 255, 0.44);
+  background: linear-gradient(160deg, rgba(19, 45, 84, 0.6), rgba(13, 34, 67, 0.36));
+}
+
+.report-chip-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.report-chip-row span {
+  border-radius: 999px;
+  border: 1px solid rgba(179, 216, 250, 0.5);
+  background: rgba(215, 236, 255, 0.1);
+  color: rgba(229, 242, 255, 0.95);
+  font-size: 0.77rem;
+  font-weight: 700;
+  padding: 4px 10px;
+}
+
+.report-frame h3 {
+  margin: 0 0 14px;
+  color: #eff8ff;
+  font-size: clamp(1.24rem, 2.2vw, 1.8rem);
+  max-width: 20ch;
+}
+
+.report-chart {
+  position: relative;
+  height: 190px;
+  border-radius: 18px;
+  border: 1px solid rgba(188, 222, 255, 0.4);
+  background:
+    linear-gradient(rgba(164, 215, 255, 0.12) 1px, transparent 1px) 0 0 / 100% 32px,
+    linear-gradient(90deg, rgba(164, 215, 255, 0.12) 1px, transparent 1px) 0 0 / 36px 100%,
+    rgba(12, 32, 62, 0.3);
+  overflow: hidden;
+}
+
+.chart-line {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  filter: drop-shadow(0 0 8px rgba(145, 213, 255, 0.6));
+}
+
+.chart-line-a {
+  bottom: 28%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cpolyline points='0,90 35,86 70,74 105,78 140,56 175,60 210,38 245,47 280,26 300,18' fill='none' stroke='%2399d4ff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.chart-line-b {
+  bottom: 22%;
+  opacity: 0.9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cpolyline points='0,74 35,66 70,63 105,52 140,49 175,43 210,39 245,35 280,30 300,26' fill='none' stroke='%23ffbe4f' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.chart-dot-a,
+.chart-dot-b,
+.chart-dot-c {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b2e5ff;
+  box-shadow: 0 0 10px rgba(179, 229, 255, 0.92);
+}
+
+.chart-dot-a {
+  right: 22%;
+  bottom: 45%;
+}
+
+.chart-dot-b {
+  right: 12%;
+  bottom: 34%;
+}
+
+.chart-dot-c {
+  right: 6%;
+  bottom: 30%;
+}
+
+.report-columns {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.report-columns p {
+  margin: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(184, 219, 252, 0.34);
+  background: rgba(204, 231, 255, 0.08);
+  color: rgba(231, 244, 255, 0.94);
+  font-size: 0.92rem;
+  padding: 10px 12px;
+}
+
+.internship-details {
+  border-radius: 30px;
+  padding: 24px 24px 20px;
+  border: 1px solid rgba(202, 229, 255, 0.44);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 18px 32px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -18px 34px rgba(34, 50, 84, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.internship-ad h2 {
+  margin: 0;
+  color: #f5fbff;
+  font-size: clamp(1.9rem, 4vw, 3.2rem);
+}
+
+.internship-ad p {
+  margin: 14px 0 0;
+  color: rgba(219, 236, 251, 0.9);
+  font-size: 1.04rem;
+  max-width: 48ch;
+}
+
+.internship-points {
+  margin-top: 18px;
+}
+
+.internship-point {
+  padding: 18px 0;
+  border-top: 1px solid rgba(184, 220, 252, 0.28);
+}
+
+.internship-point h3 {
+  margin: 0 0 8px;
+  color: #eff8ff;
+  font-size: 1.5rem;
+}
+
+.internship-point p {
+  margin: 0;
+  color: rgba(219, 236, 251, 0.9);
+  font-size: 1.06rem;
+}
+
+.internship-details .btn {
+  margin-top: 12px;
+}
+
 .sector-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1473,6 +1648,14 @@ h1 {
   .grid-cards,
   .sector-grid {
     grid-template-columns: 1fr;
+  }
+
+  .internship-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .report-frame {
+    min-height: 500px;
   }
 
   .holo-metrics {
