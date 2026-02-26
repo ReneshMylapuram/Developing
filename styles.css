@@ -755,6 +755,100 @@ h1 {
   margin-top: 14px;
 }
 
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.sector-card {
+  border-radius: 24px;
+  padding: 24px 22px 20px;
+  border: 1px solid rgba(202, 229, 255, 0.42);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    0 18px 32px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -18px 34px rgba(34, 50, 84, 0.16);
+  backdrop-filter: blur(8px);
+}
+
+.sector-icon-wrap {
+  min-height: 110px;
+  display: grid;
+  place-items: center;
+}
+
+.sector-icon {
+  width: 86px;
+  height: 86px;
+  fill: none;
+  stroke: rgba(214, 236, 255, 0.96);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 10px rgba(147, 205, 255, 0.26));
+}
+
+.sector-dash {
+  position: relative;
+  height: 22px;
+  margin: 4px 0 8px;
+}
+
+.sector-dash::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(220, 239, 255, 0), rgba(177, 215, 250, 0.72), rgba(220, 239, 255, 0));
+}
+
+.sector-dash::after {
+  content: "—";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(206, 232, 255, 0.84);
+  font-weight: 700;
+  font-size: 1.06rem;
+  padding: 0 8px;
+  background: rgba(23, 50, 89, 0.24);
+}
+
+.sector-card h3 {
+  margin: 0 0 8px;
+  color: #f6fbff;
+  font-size: 1.28rem;
+}
+
+.sector-card p {
+  margin: 0;
+  color: rgba(220, 236, 251, 0.9);
+}
+
+.sector-link {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #beddff;
+}
+
+.sector-link span {
+  transition: transform 160ms ease;
+}
+
+.sector-link:hover span {
+  transform: translateX(3px);
+}
+
 .leadership-stack {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.24);
@@ -1353,7 +1447,8 @@ h1 {
   }
 
   .hero-stats,
-  .grid-cards {
+  .grid-cards,
+  .sector-grid {
     grid-template-columns: 1fr;
   }
 
