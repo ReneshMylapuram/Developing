@@ -1017,6 +1017,12 @@ h1 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.ledger-panel[data-ledger-panel="holdings"] .ledger-head span:nth-child(4),
+.ledger-panel[data-ledger-panel="holdings"] .ledger-row > :nth-child(4) {
+  justify-self: end;
+  text-align: right;
+}
+
 .ledger-head {
   color: rgba(214, 235, 255, 0.95);
   font-weight: 700;
