@@ -48,14 +48,19 @@
             <span class="search-icon" aria-hidden="true">⌕</span>
             <input id="caseStudySearch" type="search" placeholder="Search by company or ticker..." />
           </label>
-          <select id="sectorFilter" class="sector-select" aria-label="Filter by Sector">
-            <option value="all">All Sectors</option>
-            <option value="technology">Technology</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="financials">Financials</option>
-            <option value="consumer">Consumer</option>
-            <option value="real-estate">Real Estate</option>
-          </select>
+          <div class="glass-select" id="sectorFilter" data-value="all">
+            <button class="glass-select-trigger" id="sectorFilterBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+              <span id="sectorFilterLabel">All Sectors</span>
+            </button>
+            <div class="glass-select-menu" id="sectorFilterMenu" role="listbox" aria-label="Filter by Sector">
+              <button class="sector-option active" type="button" data-value="all" role="option" aria-selected="true">All Sectors</button>
+              <button class="sector-option" type="button" data-value="technology" role="option" aria-selected="false">Technology</button>
+              <button class="sector-option" type="button" data-value="healthcare" role="option" aria-selected="false">Healthcare</button>
+              <button class="sector-option" type="button" data-value="financials" role="option" aria-selected="false">Financials</button>
+              <button class="sector-option" type="button" data-value="consumer" role="option" aria-selected="false">Consumer</button>
+              <button class="sector-option" type="button" data-value="real-estate" role="option" aria-selected="false">Real Estate</button>
+            </div>
+          </div>
         </div>
 
         <div class="case-study-list" id="caseStudyList">

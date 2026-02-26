@@ -29,12 +29,17 @@ if (ledgerTabs.length) {
 
 const caseStudySearch = document.getElementById("caseStudySearch");
 const sectorFilter = document.getElementById("sectorFilter");
+const sectorFilterBtn = document.getElementById("sectorFilterBtn");
+const sectorFilterLabel = document.getElementById("sectorFilterLabel");
+const sectorOptions = Array.from(document.querySelectorAll(".sector-option"));
 const caseItems = Array.from(document.querySelectorAll(".case-study-item"));
 
 if (caseStudySearch && sectorFilter && caseItems.length) {
+  let sectorValue = sectorFilter.dataset.value || "all";
+
   const filterCases = () => {
     const q = caseStudySearch.value.trim().toLowerCase();
-    const sector = sectorFilter.value;
+    const sector = sectorValue;
 
     caseItems.forEach((item) => {
       const itemSector = item.dataset.sector || "";
@@ -45,8 +50,38 @@ if (caseStudySearch && sectorFilter && caseItems.length) {
     });
   };
 
+  if (sectorFilterBtn && sectorOptions.length && sectorFilterLabel) {
+    sectorFilterBtn.addEventListener("click", () => {
+      const expanded = sectorFilter.classList.toggle("open");
+      sectorFilterBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+    });
+
+    sectorOptions.forEach((opt) => {
+      opt.addEventListener("click", () => {
+        sectorValue = opt.dataset.value || "all";
+        sectorFilter.dataset.value = sectorValue;
+        sectorFilterLabel.textContent = opt.textContent || "All Sectors";
+        sectorOptions.forEach((o) => {
+          const active = o === opt;
+          o.classList.toggle("active", active);
+          o.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        sectorFilter.classList.remove("open");
+        sectorFilterBtn.setAttribute("aria-expanded", "false");
+        filterCases();
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!sectorFilter.contains(e.target)) {
+        sectorFilter.classList.remove("open");
+        sectorFilterBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
   caseStudySearch.addEventListener("input", filterCases);
-  sectorFilter.addEventListener("change", filterCases);
+  filterCases();
 }
 
 const chartCanvas = document.getElementById("portfolioChart");
