@@ -1112,6 +1112,18 @@ h1 {
   padding: 12px;
 }
 
+.profile-card.sector-head-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile-card.sector-head-link:focus-visible {
+  outline: 2px solid #ffd27a;
+  outline-offset: 2px;
+}
+
 .profile-ph {
   min-height: 140px;
   border-radius: 16px;
