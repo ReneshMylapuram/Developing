@@ -326,6 +326,22 @@ if (chartCanvas) {
     activeData = series[currentRange] || series.d;
   };
 
+  const withLivePoint = (historyPoints, liveTotal) => {
+    if (!Number.isFinite(liveTotal) || liveTotal <= 0) return historyPoints;
+    const points = [...historyPoints];
+    const now = new Date();
+
+    if (!points.length) {
+      return [{ ts: now, value: liveTotal }];
+    }
+
+    const last = points[points.length - 1];
+    if (Math.abs(last.value - liveTotal) < 0.0001) return points;
+
+    points.push({ ts: now, value: liveTotal });
+    return points;
+  };
+
   const renderHoldings = (holdings) => {
     if (!holdingsPanel) return;
     holdingsPanel.querySelectorAll(".ledger-row").forEach((el) => el.remove());
@@ -485,15 +501,17 @@ if (chartCanvas) {
       const [webCsv, perfCsv] = await Promise.all([webResp.text(), perfResp.text()]);
       const holdings = mergeWithLastGoodHoldings(parseWebData(webCsv));
       const history = parsePerfHistory(perfCsv);
+      let total = NaN;
 
       if (holdings.length) {
         renderHoldings(holdings);
-        const total = holdings.reduce((sum, h) => sum + (Number.isFinite(h.marketValue) ? h.marketValue : 0), 0);
+        total = holdings.reduce((sum, h) => sum + (Number.isFinite(h.marketValue) ? h.marketValue : 0), 0);
         if (total > 0) valueEl.textContent = fmt(total);
       }
 
-      if (history.length) {
-        rebuildSeriesFromHistory(history);
+      const syncedHistory = withLivePoint(history, total);
+      if (syncedHistory.length) {
+        rebuildSeriesFromHistory(syncedHistory);
         if (activeData.length) valueEl.textContent = fmt(activeData[activeData.length - 1]);
         drawChart();
       }
