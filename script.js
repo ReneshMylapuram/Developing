@@ -12,6 +12,24 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
+const rpWatermark = document.createElement("a");
+rpWatermark.id = "rpWatermark";
+rpWatermark.className = "rp-watermark";
+rpWatermark.href = "https://reneshmylapuram.github.io/RP-Buisness-Development/";
+rpWatermark.target = "_blank";
+rpWatermark.rel = "noopener noreferrer";
+rpWatermark.setAttribute("aria-label", "Visit RP website");
+rpWatermark.textContent = "RP";
+document.body.appendChild(rpWatermark);
+
+const updateRpWatermark = () => {
+  const scrollOffset = Math.min(26, (window.scrollY || 0) * 0.04);
+  rpWatermark.style.transform = `translateY(-${scrollOffset.toFixed(1)}px) rotate(-9deg)`;
+};
+
+window.addEventListener("scroll", updateRpWatermark, { passive: true });
+updateRpWatermark();
+
 const WEB_DATA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=748707544&single=true&output=csv";
 const PERF_HISTORY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=1046705098&single=true&output=csv";
 const SECTOR_LINKS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=215975476&single=true&output=csv";

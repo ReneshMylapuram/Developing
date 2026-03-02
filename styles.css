@@ -1668,6 +1668,28 @@ h1 {
   transform: translateY(0);
 }
 
+.rp-watermark {
+  position: fixed;
+  right: 18px;
+  bottom: 16px;
+  z-index: 30;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: "Brush Script MT", "Lucida Handwriting", cursive;
+  font-size: clamp(2rem, 3.6vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  opacity: 0.78;
+  text-shadow: 0 3px 12px rgba(5, 16, 38, 0.6);
+  transition: opacity 180ms ease;
+  user-select: none;
+}
+
+.rp-watermark:hover,
+.rp-watermark:focus-visible {
+  opacity: 1;
+}
+
 @media (max-width: 860px) {
   .home-page .hero-showcase {
     min-height: auto;
