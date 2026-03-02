@@ -1657,6 +1657,16 @@ h1 {
   flex-wrap: wrap;
 }
 
+.site-footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(20px);
