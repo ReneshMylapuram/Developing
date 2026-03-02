@@ -12,6 +12,11 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
+const WEB_DATA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=748707544&single=true&output=csv";
+const PERF_HISTORY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=1046705098&single=true&output=csv";
+const SECTOR_LINKS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=215975476&single=true&output=csv";
+const STARTING_CAPITAL = 15500;
+
 const ledgerTabs = Array.from(document.querySelectorAll(".ledger-tab"));
 if (ledgerTabs.length) {
   const ledgerPanels = Array.from(document.querySelectorAll(".ledger-panel"));
@@ -31,31 +36,57 @@ const caseStudySearch = document.getElementById("caseStudySearch");
 const sectorFilter = document.getElementById("sectorFilter");
 const sectorFilterBtn = document.getElementById("sectorFilterBtn");
 const sectorFilterLabel = document.getElementById("sectorFilterLabel");
-const sectorOptions = Array.from(document.querySelectorAll(".sector-option"));
-const caseItems = Array.from(document.querySelectorAll(".case-study-item"));
+const sectorFilterMenu = document.getElementById("sectorFilterMenu");
+const caseStudyList = document.getElementById("caseStudyList");
 
-if (caseStudySearch && sectorFilter && caseItems.length) {
+if (caseStudySearch && sectorFilter && sectorFilterBtn && sectorFilterLabel && sectorFilterMenu && caseStudyList) {
   let sectorValue = sectorFilter.dataset.value || "all";
+  let caseItems = [];
+  let sectorOptions = [];
 
-  const filterCases = () => {
-    const q = caseStudySearch.value.trim().toLowerCase();
-    const sector = sectorValue;
+  const normalizeHeader = (h) => String(h || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  const toSlug = (v) => String(v || "Uncategorized").trim().toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "uncategorized";
 
-    caseItems.forEach((item) => {
-      const itemSector = item.dataset.sector || "";
-      const haystack = ((item.dataset.search || "") + " " + item.textContent).toLowerCase();
-      const sectorPass = sector === "all" || itemSector === sector;
-      const textPass = !q || haystack.includes(q);
-      item.style.display = sectorPass && textPass ? "flex" : "none";
-    });
+  const parseCsv = (text) => {
+    const rows = [];
+    let row = [];
+    let value = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i += 1) {
+      const c = text[i];
+      const next = text[i + 1];
+
+      if (c === '"') {
+        if (inQuotes && next === '"') {
+          value += '"';
+          i += 1;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (c === "," && !inQuotes) {
+        row.push(value);
+        value = "";
+      } else if ((c === "\n" || c === "\r") && !inQuotes) {
+        if (c === "\r" && next === "\n") i += 1;
+        row.push(value);
+        if (row.some((cell) => cell.trim() !== "")) rows.push(row);
+        row = [];
+        value = "";
+      } else {
+        value += c;
+      }
+    }
+
+    if (value.length || row.length) {
+      row.push(value);
+      if (row.some((cell) => cell.trim() !== "")) rows.push(row);
+    }
+
+    return rows;
   };
 
-  if (sectorFilterBtn && sectorOptions.length && sectorFilterLabel) {
-    sectorFilterBtn.addEventListener("click", () => {
-      const expanded = sectorFilter.classList.toggle("open");
-      sectorFilterBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
-    });
-
+  const bindSectorOptionEvents = () => {
     sectorOptions.forEach((opt) => {
       opt.addEventListener("click", () => {
         sectorValue = opt.dataset.value || "all";
@@ -71,23 +102,177 @@ if (caseStudySearch && sectorFilter && caseItems.length) {
         filterCases();
       });
     });
+  };
 
-    document.addEventListener("click", (e) => {
-      if (!sectorFilter.contains(e.target)) {
-        sectorFilter.classList.remove("open");
-        sectorFilterBtn.setAttribute("aria-expanded", "false");
-      }
+  const rebuildSectorOptions = (items) => {
+    const sectorMap = new Map();
+    items.forEach((item) => {
+      sectorMap.set(item.sectorSlug, item.sectorLabel);
     });
-  }
+
+    sectorFilterMenu.innerHTML = "";
+
+    const addOption = (value, label, active = false) => {
+      const btn = document.createElement("button");
+      btn.className = `sector-option${active ? " active" : ""}`;
+      btn.type = "button";
+      btn.dataset.value = value;
+      btn.setAttribute("role", "option");
+      btn.setAttribute("aria-selected", active ? "true" : "false");
+      btn.textContent = label;
+      sectorFilterMenu.appendChild(btn);
+    };
+
+    if (sectorValue !== "all" && !sectorMap.has(sectorValue)) {
+      sectorValue = "all";
+      sectorFilter.dataset.value = "all";
+      sectorFilterLabel.textContent = "All Sectors";
+    }
+
+    addOption("all", "All Sectors", sectorValue === "all");
+    Array.from(sectorMap.entries()).sort((a, b) => a[1].localeCompare(b[1])).forEach(([slug, label]) => {
+      addOption(slug, label, sectorValue === slug);
+    });
+
+    sectorOptions = Array.from(sectorFilterMenu.querySelectorAll(".sector-option"));
+    bindSectorOptionEvents();
+  };
+
+  const filterCases = () => {
+    const q = caseStudySearch.value.trim().toLowerCase();
+    const sector = sectorValue;
+
+    caseItems.forEach((item) => {
+      const itemSector = item.dataset.sector || "";
+      const haystack = ((item.dataset.search || "") + " " + item.textContent).toLowerCase();
+      const sectorPass = sector === "all" || itemSector === sector;
+      const textPass = !q || haystack.includes(q);
+      item.style.display = sectorPass && textPass ? "flex" : "none";
+    });
+  };
+
+  const renderCaseStudies = (items) => {
+    caseStudyList.innerHTML = "";
+
+    if (!items.length) {
+      const empty = document.createElement("div");
+      empty.className = "case-study-item";
+      empty.innerHTML = '<span class="case-title">No case studies available yet.</span><span class="case-meta">Add ticker + case study URL in Google Sheets.</span>';
+      caseStudyList.appendChild(empty);
+      caseItems = Array.from(caseStudyList.querySelectorAll(".case-study-item"));
+      filterCases();
+      return;
+    }
+
+    items.forEach((item) => {
+      const a = document.createElement("a");
+      a.className = "case-study-item";
+      a.href = item.link;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.dataset.sector = item.sectorSlug;
+      a.dataset.search = `${item.company} ${item.ticker} ${item.sectorLabel}`;
+      a.innerHTML = `<span class="case-title">${item.company} (${item.ticker})</span><span class="case-meta">${item.sectorLabel}</span>`;
+      caseStudyList.appendChild(a);
+    });
+
+    caseItems = Array.from(caseStudyList.querySelectorAll(".case-study-item"));
+    filterCases();
+  };
+
+  const loadCaseStudies = async () => {
+    try {
+      const url = `${WEB_DATA_CSV_URL}&t=${Date.now()}`;
+      const resp = await fetch(url, { cache: "no-store" });
+      const csvText = await resp.text();
+      const rows = parseCsv(csvText);
+      if (rows.length < 2) {
+        renderCaseStudies([]);
+        rebuildSectorOptions([]);
+        return;
+      }
+
+      const headers = rows[0].map(normalizeHeader);
+      const findIdx = (...candidates) => {
+        for (const c of candidates) {
+          const i = headers.indexOf(c);
+          if (i !== -1) return i;
+        }
+        return -1;
+      };
+
+      const idxTicker = findIdx("ticker");
+      const idxCompany = findIdx("company", "companyname");
+      const idxSector = findIdx("sector");
+      let idxCaseStudy = findIdx("casestudy", "casestudylink", "researchlink", "link");
+
+      // Fallback: use last column if case-study-like header isn't found.
+      if (idxCaseStudy === -1 && rows[0].length) {
+        idxCaseStudy = rows[0].length - 1;
+      }
+
+      const normalizeUrl = (candidate) => {
+        const raw = String(candidate || "").trim();
+        if (!raw) return "";
+        if (/^https?:\/\//i.test(raw)) return raw;
+        if (/(?:docs\.google|drive\.google|canva\.com)/i.test(raw)) {
+          return `https://${raw.replace(/^\/+/, "")}`;
+        }
+        return "";
+      };
+
+      const detectRowLink = (row, preferredIdx) => {
+        const direct = preferredIdx !== -1 ? normalizeUrl(row[preferredIdx]) : "";
+        if (direct) return direct;
+        for (const cell of row) {
+          const detected = normalizeUrl(cell);
+          if (detected) return detected;
+        }
+        return "";
+      };
+
+      const items = rows.slice(1).map((r) => {
+        const ticker = String((idxTicker !== -1 ? r[idxTicker] : r[0]) || "").trim();
+        const company = String((idxCompany !== -1 ? r[idxCompany] : r[1]) || ticker).trim() || ticker;
+        const sectorLabel = String((idxSector !== -1 ? r[idxSector] : "") || "Uncategorized").trim() || "Uncategorized";
+        const link = detectRowLink(r, idxCaseStudy);
+        return {
+          ticker,
+          company,
+          sectorLabel,
+          sectorSlug: toSlug(sectorLabel),
+          link
+        };
+      }).filter((x) => x.ticker && /^https?:\/\//i.test(x.link));
+
+      rebuildSectorOptions(items);
+      renderCaseStudies(items);
+    } catch (err) {
+      renderCaseStudies([]);
+      rebuildSectorOptions([]);
+      console.error("Case study feed refresh failed:", err);
+    }
+  };
+
+  sectorFilterBtn.addEventListener("click", () => {
+    const expanded = sectorFilter.classList.toggle("open");
+    sectorFilterBtn.setAttribute("aria-expanded", expanded ? "true" : "false");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!sectorFilter.contains(e.target)) {
+      sectorFilter.classList.remove("open");
+      sectorFilterBtn.setAttribute("aria-expanded", "false");
+    }
+  });
 
   caseStudySearch.addEventListener("input", filterCases);
-  filterCases();
+  loadCaseStudies();
+  setInterval(loadCaseStudies, 60000);
 }
 
 const chartCanvas = document.getElementById("portfolioChart");
 if (chartCanvas) {
-  const WEB_DATA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=748707544&single=true&output=csv";
-  const PERF_HISTORY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSOM_8q53x61Mu-boSaObNiYSF1orAF1uJC46W_yZf34gEl2CrG4Vj4dgFb_JJ_c-fe_fws8Joqte7E/pub?gid=1046705098&single=true&output=csv";
   const chartWrap = document.getElementById("trackerChartWrap");
   const crosshair = document.getElementById("chartCrosshair");
   const tooltip = document.getElementById("chartTooltip");
@@ -255,10 +440,17 @@ if (chartCanvas) {
       marketValue: Number.isFinite(r.marketValue)
         ? r.marketValue
         : (Number.isFinite(r.shares) && Number.isFinite(r.price) ? r.shares * r.price : NaN),
+      pnlDollar: Number.isFinite(r.pnlDollar)
+        ? r.pnlDollar
+        : (Number.isFinite(r.marketValue) && Number.isFinite(r.costBasis) ? r.marketValue - r.costBasis : NaN),
       pnlPct: Number.isFinite(r.pnlPct)
         ? r.pnlPct
-        : (Number.isFinite(r.pnlDollar) && Number.isFinite(r.costBasis) && r.costBasis !== 0
-            ? r.pnlDollar / r.costBasis
+        : (Number.isFinite((Number.isFinite(r.pnlDollar)
+            ? r.pnlDollar
+            : (Number.isFinite(r.marketValue) && Number.isFinite(r.costBasis) ? r.marketValue - r.costBasis : NaN))) && Number.isFinite(r.costBasis) && r.costBasis !== 0
+            ? (Number.isFinite(r.pnlDollar)
+                ? r.pnlDollar
+                : (Number.isFinite(r.marketValue) && Number.isFinite(r.costBasis) ? r.marketValue - r.costBasis : NaN)) / r.costBasis
             : NaN)
     })).filter((r) => r.ticker);
   };
@@ -271,6 +463,7 @@ if (chartCanvas) {
           ticker: h.ticker,
           shares: Number.isFinite(h.shares) ? h.shares : prev.shares,
           marketValue: Number.isFinite(h.marketValue) ? h.marketValue : prev.marketValue,
+          pnlDollar: Number.isFinite(h.pnlDollar) ? h.pnlDollar : prev.pnlDollar,
           pnlPct: Number.isFinite(h.pnlPct) ? h.pnlPct : prev.pnlPct
         };
         lastGoodHoldings.set(h.ticker, next);
@@ -505,7 +698,8 @@ if (chartCanvas) {
 
       if (holdings.length) {
         renderHoldings(holdings);
-        total = holdings.reduce((sum, h) => sum + (Number.isFinite(h.marketValue) ? h.marketValue : 0), 0);
+        const totalPnlDollar = holdings.reduce((sum, h) => sum + (Number.isFinite(h.pnlDollar) ? h.pnlDollar : 0), 0);
+        total = STARTING_CAPITAL + totalPnlDollar;
         if (total > 0) valueEl.textContent = fmt(total);
       }
 
@@ -537,4 +731,108 @@ if (chartCanvas) {
   resizeCanvas();
   refreshFromSheets();
   setInterval(refreshFromSheets, 60000);
+}
+
+const researchList = document.querySelector(".research-list");
+if (researchList) {
+  const pageToSector = {
+    "research-healthcare.html": "healthcare",
+    "research-industrials.html": "industrials",
+    "research-financials.html": "financials",
+    "research-real-estate.html": "real-estate",
+    "research-consumer-staples.html": "consumer-staples",
+    "research-ai-emerging-tech.html": "ai-emerging-tech",
+    "research-information-technology.html": "information-technology"
+  };
+
+  const normalizeHeader = (h) => String(h || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+  const toSlug = (v) => String(v || "").trim().toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+  const parseCsv = (text) => {
+    const rows = [];
+    let row = [];
+    let value = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i += 1) {
+      const c = text[i];
+      const next = text[i + 1];
+
+      if (c === '"') {
+        if (inQuotes && next === '"') {
+          value += '"';
+          i += 1;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (c === "," && !inQuotes) {
+        row.push(value);
+        value = "";
+      } else if ((c === "\n" || c === "\r") && !inQuotes) {
+        if (c === "\r" && next === "\n") i += 1;
+        row.push(value);
+        if (row.some((cell) => cell.trim() !== "")) rows.push(row);
+        row = [];
+        value = "";
+      } else {
+        value += c;
+      }
+    }
+
+    if (value.length || row.length) {
+      row.push(value);
+      if (row.some((cell) => cell.trim() !== "")) rows.push(row);
+    }
+
+    return rows;
+  };
+
+  const currentFile = window.location.pathname.split("/").pop();
+  const activeSector = pageToSector[currentFile || ""];
+
+  const loadSectorResearchLinks = async () => {
+    if (!activeSector) return;
+    try {
+      const url = `${SECTOR_LINKS_CSV_URL}&t=${Date.now()}`;
+      const resp = await fetch(url, { cache: "no-store" });
+      const csvText = await resp.text();
+      const rows = parseCsv(csvText);
+      if (rows.length < 2) return;
+
+      const headers = rows[0].map(normalizeHeader);
+      const idxSector = headers.indexOf("sector");
+      const idxTitle = headers.indexOf("title");
+      const idxUrl = headers.indexOf("url");
+      if (idxSector === -1 || idxTitle === -1 || idxUrl === -1) return;
+
+      const items = rows.slice(1).map((r) => {
+        const sector = toSlug(r[idxSector] || "");
+        const title = String(r[idxTitle] || "").trim();
+        const link = String(r[idxUrl] || "").trim();
+        return { sector, title, link };
+      }).filter((x) => x.sector === activeSector && x.title && /^https?:\/\//i.test(x.link));
+
+      researchList.innerHTML = "";
+      if (!items.length) {
+        researchList.innerHTML = "<li>No research links available yet for this sector.</li>";
+        return;
+      }
+
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = item.link;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = item.title;
+        li.appendChild(a);
+        researchList.appendChild(li);
+      });
+    } catch (err) {
+      console.error("Sector research feed refresh failed:", err);
+    }
+  };
+
+  loadSectorResearchLinks();
+  setInterval(loadSectorResearchLinks, 60000);
 }
