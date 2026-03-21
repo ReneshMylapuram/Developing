@@ -1,16 +1,28 @@
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12 }
-);
+const revealEls = Array.from(document.querySelectorAll(".reveal"));
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.05,
+      rootMargin: "0px 0px -8% 0px"
+    }
+  );
+  revealEls.forEach((el) => observer.observe(el));
 
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  // Mobile safety net: if any reveal blocks fail to trigger, show them anyway.
+  window.setTimeout(() => {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  }, 1500);
+} else {
+  revealEls.forEach((el) => el.classList.add("is-visible"));
+}
 
 const rpWatermark = document.createElement("a");
 rpWatermark.id = "rpWatermark";
@@ -516,23 +528,58 @@ if (chartCanvas) {
       .sort((a, b) => a.ts - b.ts);
   };
 
-  const pointsForWindow = (points, msWindow) => {
+  const startOfDay = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+  const shiftDateByDays = (date, days) => {
+    const shifted = new Date(date);
+    shifted.setDate(shifted.getDate() + days);
+    return shifted;
+  };
+
+  const normalizeHistoryValues = (points, liveTotal) => {
+    if (!points.length) return points;
+
+    const lastPoint = points[points.length - 1];
+    const rawGap = Number.isFinite(liveTotal) ? Math.abs(lastPoint.value - liveTotal) : 0;
+    const shiftedGap = Number.isFinite(liveTotal) ? Math.abs((lastPoint.value + STARTING_CAPITAL) - liveTotal) : 0;
+    const looksLikePnlSeries = points.every((p) => Math.abs(p.value) < STARTING_CAPITAL);
+
+    if (Number.isFinite(liveTotal) && looksLikePnlSeries && shiftedGap < rawGap) {
+      return points.map((p) => ({ ...p, value: p.value + STARTING_CAPITAL }));
+    }
+
+    return points;
+  };
+
+  const pointsForRange = (points, range) => {
     if (!points.length) return [];
-    const end = points[points.length - 1].ts.getTime();
-    const start = end - msWindow;
-    const filtered = points.filter((p) => p.ts.getTime() >= start).map((p) => p.value);
+    const endPointDate = points[points.length - 1].ts;
+    let start = null;
+
+    if (range === "d") {
+      start = startOfDay(endPointDate);
+    } else if (range === "w") {
+      start = startOfDay(shiftDateByDays(endPointDate, -6));
+    } else if (range === "m") {
+      start = startOfDay(shiftDateByDays(endPointDate, -29));
+    } else if (range === "y") {
+      start = startOfDay(shiftDateByDays(endPointDate, -364));
+    }
+
+    const filtered = points.filter((p) => !start || p.ts >= start).map((p) => p.value);
     if (filtered.length >= 2) return filtered;
     if (points.length >= 2) return points.slice(-Math.min(24, points.length)).map((p) => p.value);
     return [points[0].value, points[0].value];
   };
 
-  const rebuildSeriesFromHistory = (points) => {
+  const rebuildSeriesFromHistory = (points, liveTotal) => {
     if (!points.length) return;
+    const normalizedPoints = normalizeHistoryValues(points, liveTotal);
     series = {
-      d: pointsForWindow(points, 24 * 60 * 60 * 1000),
-      w: pointsForWindow(points, 7 * 24 * 60 * 60 * 1000),
-      m: pointsForWindow(points, 30 * 24 * 60 * 60 * 1000),
-      y: pointsForWindow(points, 365 * 24 * 60 * 60 * 1000)
+      d: pointsForRange(normalizedPoints, "d"),
+      w: pointsForRange(normalizedPoints, "w"),
+      m: pointsForRange(normalizedPoints, "m"),
+      y: pointsForRange(normalizedPoints, "y")
     };
     activeData = series[currentRange] || series.d;
   };
@@ -723,7 +770,7 @@ if (chartCanvas) {
 
       const syncedHistory = withLivePoint(history, total);
       if (syncedHistory.length) {
-        rebuildSeriesFromHistory(syncedHistory);
+        rebuildSeriesFromHistory(syncedHistory, total);
         if (activeData.length) valueEl.textContent = fmt(activeData[activeData.length - 1]);
         drawChart();
       }
